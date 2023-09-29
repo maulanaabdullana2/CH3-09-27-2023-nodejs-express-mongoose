@@ -7,10 +7,7 @@ const toursController = require("../controllers/toursController")
 router
   .route("/")
   .get(toursController.getAllToursModels)
-  .post(
-    toursController.checkBody,
-    toursController.createTourModel
-  )
+  .post(toursController.createTourModel)
 
 router
   .route("/:id")

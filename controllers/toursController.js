@@ -86,11 +86,11 @@ const updateTourModel = async (req, res) => {
 const removeTourModel = async (req, res) => {
   try {
     const id = req.params.id
-    const tour = await Tour.findByIdAndDelete(id)
+    const tour = await Tour.findByIdAndRemove(id)
     if (!tour) {
-      return req.status(404).json({
+      return res.status(404).json({
         status: "failed",
-        message: "Id not found",
+        message: ` ${id} not found`,
         data: null,
       })
     }
@@ -120,17 +120,6 @@ const removeTourModel = async (req, res) => {
 //   }
 //   next()
 // }
-
-const checkBody = (req, res, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: "failed",
-      message: `name or price are required`,
-    })
-  }
-  next()
-}
-
 // baca data dari file json
 const tours = JSON.parse(
   fs.readFileSync(
@@ -240,7 +229,6 @@ module.exports = {
   createTour,
   editTour,
   removeTour,
-  checkBody,
   getTourById,
   getAllToursModels,
   getTourByIdModel,
